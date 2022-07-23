@@ -5,9 +5,9 @@ from time import time,sleep,localtime
 import requests
 from bs4 import BeautifulSoup
 import sys
+import qqemail
 
-
-user1 = {"no": "学号", "密码": "密码"}  # 学号  # 密码
+user1 = {"no": "学号", "password": "密码"}  # 学号  # 密码
 
 users = [user1]
 data = {
@@ -18,7 +18,7 @@ data = {
     "myvs_5": "否",
     "myvs_7": "否",
     "myvs_8": "否",
-    "myvs_9": "y",
+    "myvs_9": "x",
     "myvs_11": "否",
     "myvs_12": "否",
     "myvs_13": "否",
@@ -32,14 +32,14 @@ data = {
     # 以下内容无需更改
     "did": "2",
     "door": "",
-    "day6": "b",
+    "day6": "",
     "men6": "a",
     "sheng6": "",
     "shi6": "",
-    "fun18": "381",
+    "fun18": "220",
     "fun3": "",
-    "jingdu": "119.303470",  # 经度
-    "weidu": "26.080429",  # 纬度
+    "jingdu": "139.706368",  # 经度
+    "weidu": "35.687629",  # 纬度
     "ptopid": "",
     "sid": "",
 }
@@ -130,8 +130,10 @@ def submit(data):
     t =localtime().tm_mday
     if str.find("感谢你今日上报健康状况") == -1:
         # print(str)
+        qqemail.out('填报失败')
         print("填报失败",t)
     else:
+        qqemail.out('填报成功')
         print(return_message(str))
         print("填报成功！",t)
 
@@ -156,13 +158,21 @@ def pi():
 
 
 # main方法
+# if __name__ == "__main__":
+#     # pi()
+#     try:
+#         for user in users:
+#             jksb(user, data)
+#             # sleep(random.randint(1,15))
+#     except Exception as e:
+#         print(e)
+#     finally:
+#         pass
+
+
 if __name__ == "__main__":
-    pi()
-    try:
-        for user in users:
-            jksb(user, data)
-            # sleep(random.randint(1,15))
-    except Exception as e:
-        print(e)
-    finally:
-        pass
+    # pi()
+
+    for user in users:
+        jksb(user, data)
+        # sleep(random.randint(1,15))
